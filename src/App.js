@@ -8,6 +8,8 @@ import { Amplify } from 'aws-amplify';
 import { generateClient } from 'aws-amplify/api';
 import config from './amplifyconfiguration.json';
 import { useEffect, useState } from 'react';
+
+import StripeContainer from './Component/StripeContainer';
 Amplify.configure(config);
 
 const defaultState = { name: '', description: ''}
@@ -16,6 +18,8 @@ function App() {
 
   const [todos, setTodos] = useState([])
   const [formData, setFormData] = useState(defaultState)
+
+  const [showItem, setShowItem] = useState(false)
 
 const client = generateClient();
 
@@ -108,6 +112,12 @@ const client = generateClient();
             )
           })
         }
+      </div>
+
+
+      <div className='payment'>
+        <h1>the spatula Store</h1>
+        {showItem ? <StripeContainer /> : <><h3>$10.000</h3><button onClick={() => setShowItem(true)}>Purchare Spatula</button></>}
       </div>
     </div>
   );
